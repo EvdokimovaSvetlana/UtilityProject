@@ -1,0 +1,90 @@
+<div class="row text-center">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8">
+    <div class="btn-group">
+      <button type="button" routerLink="/add" class="btn btn-primary">Add new utilities</button>
+      <button type="button" routerLink="/change" class="btn btn-primary">Change utilities</button>
+      <button type="button" routerLink="/delete" class="btn btn-primary">Delete utility</button>
+      <button type="button" routerLink="/info" class="btn btn-primary">All paid utilities</button>
+    </div>
+  </div>
+  <div class="col-sm-2"></div>
+</div>
+<div *ngIf="chooseYear!=undefined">
+  <div class="row text-center">
+    <h1>{{ chooseYear }}</h1>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <div *ngIf="allComunals!=undefined">
+        <input type="range" [(ngModel)]="chooseYear" min={{calculateMinimulYear()}} max={{todayYear}} step="1" />
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+
+  <div class="row text-center">
+    <div class="col-sm-3"></div>
+    <div *ngFor="let month of months">
+      <div class="col-sm-2" *ngIf="month.id<=3">
+        <div *ngIf="todayYear<chooseYear || (todayYear==chooseYear && todayMonth+2<month.id)">
+          <button (click)="onSelect(month)" type="button" disabled class="btn btn-primary">{{month.id}} {{ month.name }}</button>
+        </div>
+        <div *ngIf="allComunals!=undefined">
+          <div *ngIf="!(todayYear<chooseYear || (todayYear==chooseYear && todayMonth+2<month.id))">
+            <button (click)="onSelect(month)" routerLink="/comunal/{{month.id}}/{{chooseYear}}" type="button" class="btn btn-primary">{{month.id}} {{ month.name }} {{addingMustPay(month.id,chooseYear)}}/{{addingPaid(month.id, chooseYear)}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row text-center">
+    <div class="col-sm-3"></div>
+    <div *ngFor="let month of months">
+      <div class="col-sm-2" *ngIf="month.id<=6 && month.id>3">
+        <div *ngIf="todayYear<chooseYear || (todayYear==chooseYear && todayMonth+2<month.id)">
+          <button (click)="onSelect(month)" type="button" disabled class="btn btn-primary">{{month.id}} {{ month.name }}</button>
+        </div>
+        <div *ngIf="allComunals!=undefined">
+          <div *ngIf="!(todayYear<chooseYear || (todayYear==chooseYear && todayMonth+2<month.id))">
+            <button (click)="onSelect(month)" routerLink="/comunal/{{month.id}}/{{chooseYear}}" type="button" class="btn btn-primary">{{month.id}} {{ month.name }}  {{addingMustPay(month.id, chooseYear)}}/{{addingPaid(month.id, chooseYear)}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+
+  <div class="row text-center">
+    <div class="col-sm-3"></div>
+    <div *ngFor="let month of months">
+      <div class="col-sm-2" *ngIf="month.id>6 && month.id<=9">
+        <div *ngIf="todayYear<chooseYear || (todayYear==chooseYear && todayMonth+2<month.id)">
+          <button (click)="onSelect(month)" type="button" disabled class="btn btn-primary">{{month.id}} {{ month.name }}</button>
+        </div>
+        <div *ngIf="allComunals!=undefined">
+          <div *ngIf="!(todayYear<chooseYear || (todayYear==chooseYear && todayMonth+2<month.id))">
+            <button (click)="onSelect(month)" routerLink="/comunal/{{month.id}}/{{chooseYear}}" type="button" class="btn btn-primary">{{month.id}} {{ month.name }}  {{addingMustPay(month.id, chooseYear)}}/{{addingPaid(month.id, chooseYear)}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+
+  <div class="row text-center">
+    <div class="col-sm-3"></div>
+    <div *ngFor="let month of months">
+      <div class="col-sm-2" *ngIf="month.id>9 && month.id<=12">
+        <div *ngIf="todayYear<chooseYear || (todayYear==chooseYear && todayMonth+2<month.id)">
+          <button (click)="onSelect(month)" type="button" disabled class="btn btn-primary">{{month.id}} {{ month.name }}</button>
+        </div>
+        <div *ngIf="allComunals!=undefined">
+          <div *ngIf="!(todayYear<chooseYear || (todayYear==chooseYear && todayMonth+2<month.id))">
+            <button (click)="onSelect(month)" routerLink="/comunal/{{month.id}}/{{chooseYear}}" type="button" class="btn btn-primary">{{month.id}} {{ month.name }}  {{addingMustPay(month.id, chooseYear)}}/{{addingPaid(month.id, chooseYear)}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+.modal-sm {
+  position: absolute;
+  top: 2%;
+  left: 39%;
+  z-index: 1;
+}
+
+.modal-footer {
+  text-align: center;
+}
+
+.modal-dialog {
+  margin-top: 30px;
+}
+
+label {
+  font-size: 12px;
+}
+
+.panel {
+  padding: 4px;
+}
+
+.btn {
+  width: 200px;
+}

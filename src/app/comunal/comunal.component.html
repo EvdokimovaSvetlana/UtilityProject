@@ -1,0 +1,93 @@
+<div *ngIf="prevMonth==true">
+  <button type="button" class="btn btn-primary" (click)="goBack()">go back</button>
+  <div *ngIf="comunal!==undefined">
+    <div *ngIf="comunal.length!=0">
+      <div *ngIf="((comunal[0].idyear==todayYear) && (comunal[0].idmonth>=todayMonth) && (comunal[0].idmonth-2<=todayMonth))" class="add">
+        <button type="button" class="btn btn-primary" routerLink="/add">Add new utility</button>
+      </div>
+      <div class="info text-center">
+        <label>Must Pay {{addingMustPay()}}</label><br>
+        <label>Paid {{addingPaid()}}</label>
+      </div>
+      <h2 class="text-center"> {{ comunal[0].idmonth | nameMonth }}-{{comunal[0].idyear}}</h2>
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div *ngFor="let item of comunal[0].panel1">
+          <div class="col-sm-2">
+            <div class="panel panel-primary">
+              <div class="panel-heading">{{item.name | uppercase}}</div>
+              <div class="panel-body">
+                <form class="form-inline" action="">
+                  <label>Must Pay<input type="number" [disabled]="item.confirm==true" placeholder="price which must to pay" (change)="save(comunal[0])" [(ngModel)]="item.mustPay" name="f"></label>
+                  <label>Paid<input type="number"[disabled]="item.confirm==true" placeholder="price which you paid" (change)="save(comunal[0])" [(ngModel)]="item.paid" name="t"></label>
+                  <button type="button" [ngClass]="item.confirm==true ? 'saved':'notsaved'" [disabled]="item.mustPay==null || item.paid==null || item.ind==null || item.paid<0 || item.confirm==true" (click)="item.confirm=true;" (click)="save(comunal[0])" class="btn btn-primary">Confirm</button>
+                  <label>Indicators</label>
+                  <input type="number" [disabled]="item.confirm==true" (change)="findMaxi(comunal[0],item)" [(ngModel)]="item.ind" name="g">
+                  <label *ngIf="item.price!=0"> Price {{item.price}}</label>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div *ngFor="let item of comunal[0].panel2">
+          <div class="col-sm-2">
+            <div class="panel panel-primary">
+              <div class="panel-heading">{{item.name | uppercase}}</div>
+              <div class="panel-body">
+                <form class="form-inline" action="">
+                  <label>Must Pay<input type="number" [disabled]="item.confirm==true" placeholder="price which must to pay" (change)="save(comunal[0])" [(ngModel)]="item.mustPay" name="f"></label>
+                  <label>Paid<input type="number"[disabled]="item.confirm==true" placeholder="price which you paid" (change)="save(comunal[0])" [(ngModel)]="item.paid" name="t"></label>
+                  <button type="button" [ngClass]="item.confirm==true ? 'saved':'notsaved'" [disabled]="item.mustPay==null || item.paid==null || item.paid<0 || item.confirm==true" (click)="item.confirm=true;" (click)="save(comunal[0])" class="btn btn-primary">Confirm</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="opport==false" class="text-center">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="goBack()" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Error</h4>
+      </div>
+      <div class="modal-body">
+        <p>Sorry, you have no payments for this month.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="goBack()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="prevMonth==false" class="text-center">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="prevMonth=true" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Error</h4>
+      </div>
+      <div class="modal-body">
+        <p>Can't calculate the amount because you have no payments for the previous month.
+        Do you want skip that payment for the previous month?</p>
+      </div>
+      <div class="modal-footer">
+        <div *ngIf="comunal[0].idmonth!=1">
+          <button type="button" class="btn btn-primary" (click)="addEmpty(comunal[0].idmonth-1,comunal[0].idyear,comunal[0],temporaryItem);prevMonth=true">Yes</button>
+        </div>
+        <div *ngIf="comunal[0].idmonth==1">
+          <button type="button" class="btn btn-primary" (click)="addEmpty(comunal[0].idmonth+11,comunal[0].idyear-1,comunal[0],temporaryItem);prevMonth=true">Yes</button>
+        </div>
+        <button type="button" class="btn btn-primary" routerLink="/" (click)="prevMonth=true;">No</button>
+
+      </div>
+    </div>
+  </div>
+</div>

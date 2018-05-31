@@ -1,0 +1,40 @@
+<div class="modal-dialog modal-sm text-center add">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" (click)="goBack();name='';price=null;">&times;</button>
+      <h4 class="modal-title">Add new service</h4>
+    </div>
+    <div class="modal-body">
+      <button class="btn btn-primary" type="button" (click)="openList=true;">Choose</button>
+      <input type="text" [(ngModel)]="name" placeholder="name">
+      <input type="number" placeholder="price" [(ngModel)]="price">
+    </div>
+    <div class="modal-footer">
+      <div *ngIf="price!=undefined">
+        <button type="button" class="btn btn-primary" (click)="addPanel1(name,price)" (click)="goBack();name='';price=null;">with indicators</button>
+        <button type="button" class="btn btn-primary" (click)="addPanel2(name,price)" (click)="goBack();name='';price=null;">without indicators</button>
+      </div>
+      <div *ngIf="price==undefined">
+        <button type="button" disabled class="btn btn-primary" (click)="addPanel1(name,price)" (click)="goBack();name='';price=null;">with indicators</button>
+        <button type="button" disabled class="btn btn-primary" (click)="addPanel2(name,price)" (click)="goBack();name='';price=null;">without indicators</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="openList==true" class="modal-dialog modal-sm list text-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" (click)="openList=false;">&times;</button>
+      <h4 class="modal-title">Choose</h4>
+    </div>
+    <div class="modal-body">
+      <div *ngFor="let item of selectPanel1">
+        <button class="btn btn-primary" (click)="name=item.name;price=item.price;openList=false;">{{item.name}} - {{item.price}}</button>
+      </div>
+      <div *ngFor="let item of selectPanel2">
+        <button class="btn btn-primary" (click)="name=item.name;price=item.mustPay;openList=false">{{item.name}} - {{item.mustPay}}</button>
+      </div>
+    </div>
+  </div>
+</div>

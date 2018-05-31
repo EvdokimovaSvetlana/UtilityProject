@@ -1,0 +1,24 @@
+.delete {
+  position: absolute;
+  top: 2%;
+  left: 39%;
+  z-index: 1;
+}
+
+.modal-footer {
+  text-align: center;
+}
+
+.modal-dialog {
+  margin-top: 30px;
+}
+
+label {
+  font-size: 12px;
+}
+
+.bord {
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding: 10px;
+}

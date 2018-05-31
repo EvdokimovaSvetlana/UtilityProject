@@ -1,0 +1,16 @@
+<div class="modal-dialog modal-sm delete text-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" (click)="goBack();">&times;</button>
+      <h4 class="modal-title">Choose utility want to delete</h4>
+    </div>
+    <div class="modal-body">
+      <div *ngFor="let item of panel1" class="panel">
+        <label class="bord"><button type="button" class="close" (click)="deletePanel1(item);">{{item.name}} &times;</button></label>
+      </div>
+      <div *ngFor="let item of panel2" class="panel">
+        <label class="bord"><button type="button" class="close" (click)="deletePanel2(item);">{{item.name}} &times;</button></label>
+      </div>
+    </div>
+  </div>
+</div>
